@@ -1,0 +1,130 @@
+2025-01-04 23:36:18.778 | ERROR    | __main__:cli:64 - An error has been caught in function 'cli', process 'MainProcess' (18371), thread 'MainThread' (128836064931840):
+Traceback (most recent call last):
+
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/slither/slither.py", line 84, in __init__
+    crytic_compile = CryticCompile(target, **kwargs)
+                     │             │         └ {'solc': '/usr/local/bin/solc'}
+                     │             └ 'examples/T.sol'
+                     └ <class 'crytic_compile.crytic_compile.CryticCompile'>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/crytic_compile.py", line 117, in __init__
+    self._compile(**kwargs)
+    │    │          └ {'solc': '/usr/local/bin/solc'}
+    │    └ <function CryticCompile._compile at 0x752cf9c6ad30>
+    └ <crytic_compile.crytic_compile.CryticCompile object at 0x752cfbd37e80>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/crytic_compile.py", line 548, in _compile
+    self._platform.compile(self, **kwargs)
+    │    │         │       │       └ {'solc': '/usr/local/bin/solc'}
+    │    │         │       └ <crytic_compile.crytic_compile.CryticCompile object at 0x752cfbd37e80>
+    │    │         └ <function Solc.compile at 0x752cf9dbb4c0>
+    │    └ <crytic_compile.platform.solc.Solc object at 0x752cfbced880>
+    └ <crytic_compile.crytic_compile.CryticCompile object at 0x752cfbd37e80>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 154, in compile
+    targets_json = _get_targets_json(compilation_unit, self._target, **kwargs)
+                   │                 │                 │    │          └ {'solc': '/usr/local/bin/solc'}
+                   │                 │                 │    └ 'examples/T.sol'
+                   │                 │                 └ <crytic_compile.platform.solc.Solc object at 0x752cfbced880>
+                   │                 └ <crytic_compile.compilation_unit.CompilationUnit object at 0x752cfbced850>
+                   └ <function _get_targets_json at 0x752cf9dbb430>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 276, in _get_targets_json
+    return _run_solc(
+           └ <function _run_solc at 0x752cf9dbb9d0>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 468, in _run_solc
+    raise InvalidCompilation(f"{filename} does not exist (are you in the correct directory?)")
+          └ <class 'crytic_compile.platform.exceptions.InvalidCompilation'>
+
+crytic_compile.platform.exceptions.InvalidCompilation: examples/T.sol does not exist (are you in the correct directory?)
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "CrossFuzz.py", line 87, in <module>
+    cli()
+    └ <function cli at 0x752cf85c6040>
+
+> File "CrossFuzz.py", line 64, in cli
+    _depend_contracts, _sl = analysis_depend_contract(file_path=p, _contract_name=c_name, _solc_version=solc_version,
+                             │                                  │                 │                     └ '0.4.26'
+                             │                                  │                 └ 'E'
+                             │                                  └ 'examples/T.sol'
+                             └ <function analysis_depend_contract at 0x752cf85c4dc0>
+
+  File "/home/manhhung/Desktop/CrossFuzz (copy)/comp.py", line 16, in analysis_depend_contract
+    sl = Slither(file_path, solc=_solc_path)
+         │       │               └ '/usr/local/bin/solc'
+         │       └ 'examples/T.sol'
+         └ <class 'slither.slither.Slither'>
+
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/slither/slither.py", line 88, in __init__
+    raise SlitherError(f"Invalid compilation: \n{str(e)}")
+          └ <class 'slither.exceptions.SlitherError'>
+
+slither.exceptions.SlitherError: Invalid compilation: 
+examples/T.sol does not exist (are you in the correct directory?)
+2025-01-04 23:37:05.341 | ERROR    | __main__:cli:64 - An error has been caught in function 'cli', process 'MainProcess' (18391), thread 'MainThread' (139188161753088):
+Traceback (most recent call last):
+
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/slither/slither.py", line 84, in __init__
+    crytic_compile = CryticCompile(target, **kwargs)
+                     │             │         └ {'solc': '/home/manhhung/Desktop/CrossFuzz/myenv/bin/solc'}
+                     │             └ 'examples/T1.sol'
+                     └ <class 'crytic_compile.crytic_compile.CryticCompile'>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/crytic_compile.py", line 117, in __init__
+    self._compile(**kwargs)
+    │    │          └ {'solc': '/home/manhhung/Desktop/CrossFuzz/myenv/bin/solc'}
+    │    └ <function CryticCompile._compile at 0x7e9742d28d30>
+    └ <crytic_compile.crytic_compile.CryticCompile object at 0x7e9744bd1e80>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/crytic_compile.py", line 548, in _compile
+    self._platform.compile(self, **kwargs)
+    │    │         │       │       └ {'solc': '/home/manhhung/Desktop/CrossFuzz/myenv/bin/solc'}
+    │    │         │       └ <crytic_compile.crytic_compile.CryticCompile object at 0x7e9744bd1e80>
+    │    │         └ <function Solc.compile at 0x7e97436a04c0>
+    │    └ <crytic_compile.platform.solc.Solc object at 0x7e9744b87880>
+    └ <crytic_compile.crytic_compile.CryticCompile object at 0x7e9744bd1e80>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 154, in compile
+    targets_json = _get_targets_json(compilation_unit, self._target, **kwargs)
+                   │                 │                 │    │          └ {'solc': '/home/manhhung/Desktop/CrossFuzz/myenv/bin/solc'}
+                   │                 │                 │    └ 'examples/T1.sol'
+                   │                 │                 └ <crytic_compile.platform.solc.Solc object at 0x7e9744b87880>
+                   │                 └ <crytic_compile.compilation_unit.CompilationUnit object at 0x7e9744b87850>
+                   └ <function _get_targets_json at 0x7e97436a0430>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 276, in _get_targets_json
+    return _run_solc(
+           └ <function _run_solc at 0x7e97436a09d0>
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/crytic_compile/platform/solc.py", line 468, in _run_solc
+    raise InvalidCompilation(f"{filename} does not exist (are you in the correct directory?)")
+          └ <class 'crytic_compile.platform.exceptions.InvalidCompilation'>
+
+crytic_compile.platform.exceptions.InvalidCompilation: examples/T1.sol does not exist (are you in the correct directory?)
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "CrossFuzz.py", line 87, in <module>
+    cli()
+    └ <function cli at 0x7e9740e46040>
+
+> File "CrossFuzz.py", line 64, in cli
+    _depend_contracts, _sl = analysis_depend_contract(file_path=p, _contract_name=c_name, _solc_version=solc_version,
+                             │                                  │                 │                     └ '0.4.26'
+                             │                                  │                 └ 'E'
+                             │                                  └ 'examples/T1.sol'
+                             └ <function analysis_depend_contract at 0x7e9740e44dc0>
+
+  File "/home/manhhung/Desktop/CrossFuzz (copy)/comp.py", line 16, in analysis_depend_contract
+    sl = Slither(file_path, solc=_solc_path)
+         │       │               └ '/home/manhhung/Desktop/CrossFuzz/myenv/bin/solc'
+         │       └ 'examples/T1.sol'
+         └ <class 'slither.slither.Slither'>
+
+  File "/home/manhhung/Desktop/CrossFuzz/myenv/lib/python3.8/site-packages/slither/slither.py", line 88, in __init__
+    raise SlitherError(f"Invalid compilation: \n{str(e)}")
+          └ <class 'slither.exceptions.SlitherError'>
+
+slither.exceptions.SlitherError: Invalid compilation: 
+examples/T1.sol does not exist (are you in the correct directory?)
