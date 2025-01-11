@@ -125,22 +125,18 @@ contract E is Child {
         return additionalContract.getAdditionalData();
     }
 
-    // Chức năng có lỗ hổng bảo mật không kiểm tra đầu vào
     function unsafeFunction(address _target, uint _amount) public onlyOwner {
         _target.call.value(_amount)("");
     }
 
-    // Lỗ hổng tràn số, khi cộng thêm giá trị quá lớn có thể gây tràn số
     function unsafeAddition(uint _value) public onlyOwner {
         etherLocked += _value;
     }
 
-    // Lỗ hổng kiểm tra tx.origin trong kiểm tra quyền sở hữu
     function restrictedFunction() public view {
         require(tx.origin == owner, "Not the contract owner");
     }
 
-    // Lỗ hổng reentrancy khi gọi hàm rút tiền
     function withdrawWithReentrancy(address _recipient, uint _amount) public onlyOwner {
         uint initialBalance = sub.checkBalance(address(this));
 
@@ -149,7 +145,6 @@ contract E is Child {
         require(sub.checkBalance(address(this)) == initialBalance - _amount, "Reentrancy attack detected");
     }
 
-    // Tạo sự kiện khi rút tiền
     function withdraw(address _recipient, uint _amount) public onlyOwner {
         require(etherLocked >= _amount, "Not enough funds to withdraw");
         etherLocked -= _amount;
@@ -178,7 +173,6 @@ contract E is Child {
         return (isPaused, etherLocked);
     }
 
-    // Phương thức để gửi Ether cho hợp đồng này (chỉ người sở hữu hợp đồng mới có thể gửi)
     function depositFunds() public payable onlyOwner {
         require(msg.value > 0, "Deposit amount must be greater than 0");
         etherLocked += msg.value;
@@ -189,17 +183,14 @@ contract E is Child {
         msg.sender.transfer(_amount);
     }
 
-    // Gọi hàm từ AdditionalContract để tăng giá trị dữ liệu
     function interactWithAdditionalContract() public {
         additionalContract.increaseData(10);
     }
 
-    // Gửi Ether tới một địa chỉ
     function sendEther(address _to, uint _amount) public onlyOwner {
         _to.transfer(_amount);
     }
 
-    // Chức năng lấy thông tin hợp đồng
     function getContractInfo() public view returns (uint, uint, uint, uint) {
         return (etherLocked, totalWithdrawn, randomSeed, balanceToLock);
     }
